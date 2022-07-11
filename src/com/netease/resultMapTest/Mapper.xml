@@ -17,9 +17,11 @@
             <arg column="username" javaType="String"/>
             <arg column="sex" javaType="String"/>
         </constructor>
+<!--        实现一对多的关联-->
         <collection property="courses" ofType="com.netease.resultMapTest.Course">
             <id property="id" column="courseId" />
             <result property="courseName" column="courseName" />
+<!--            实现复杂类型的关联-->
             <association property="teacher" column="teacher_id"
             javaType="com.netease.resultMapTest.Teacher">
                 <id property="id" column="teacherId"/>
