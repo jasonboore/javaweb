@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.netease.resultMapTest.UserOp">
+    <select id="getUser" parameterType="int" resultMap = "UserMap">
+        select u.id
+        as userId, userName, courseName, sex, c.id as courseId from user u
+        left join usercourse uc on u.id = uc.user_id
+        left join course c on c.id = uc.course_id
+        where u.id = #{id}
+    </select>
+
+    <resultMap id="UserMap" type="com.netease.resultMapTest.User">
+        <constructor>
+            <idArg column="userId" javaType="int" />
+            <arg column="username" javaType="String"/>
+            <arg column="sex" javaType="String"/>
+        </constructor>
+        <collection property="courses" ofType="com.netease.resultMapTest.Course">
+            <id property="id" column="courseId" />
+            <result property="courseName" column="courseName" />
+        </collection>
+    </resultMap>
+</mapper>
